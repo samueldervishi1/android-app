@@ -31,3 +31,26 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+app/proguard-rules.pro
+.kotlin
+/app/src/test
+/app/src/main/res
+app/src/androidTest/java/com/example/chyra/ExampleInstrumentedTest.kt
