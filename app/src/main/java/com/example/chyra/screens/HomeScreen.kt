@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.chyra.R
+import com.example.chyra.screens.TopNavigationBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -39,7 +40,7 @@ fun HomeScreen(navController: NavController) {
     val screens = listOf("Home", "AI", "Communities")
 
     Scaffold(
-        topBar = { TopNavigationBar() },
+        topBar = { TopNavigationBar(navController) },
         bottomBar = {
             BottomNavigationBar(
                 selectedTab = selectedTab,

@@ -52,5 +52,4 @@ gradle/wrapper/gradle-wrapper.properties
 app/proguard-rules.pro
 .kotlin
 /app/src/test
-/app/src/main/res
 app/src/androidTest/java/com/example/chyra/ExampleInstrumentedTest.kt

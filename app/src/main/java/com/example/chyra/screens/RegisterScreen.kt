@@ -21,12 +21,16 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.chyra.R
-import com.example.chyra.models.LoginViewModel
+import com.example.chyra.models.RegisterViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = viewModel()) {
+fun RegisterScreen(
+    navController: NavController,
+    registerViewModel: RegisterViewModel = viewModel()
+) {
     val systemUiController = rememberSystemUiController()
 
     SideEffect {
@@ -36,8 +40,10 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = v
         )
     }
 
-    val isLoading by loginViewModel.isLoading.collectAsState()
+    val isLoading by registerViewModel.isLoading.collectAsState()
     var username by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var fullName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
 
@@ -58,7 +64,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = v
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "Login",
+                    text = "Register",
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -86,6 +92,24 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = v
                         Spacer(modifier = Modifier.height(8.dp))
 
                         TextField(
+                            value = email,
+                            onValueChange = { email = it },
+                            label = { Text("Email") },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        TextField(
+                            value = fullName,
+                            onValueChange = { fullName = it },
+                            label = { Text("Full Name") },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        TextField(
                             value = password,
                             onValueChange = { password = it },
                             label = { Text("Password") },
@@ -96,9 +120,11 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = v
                             ),
                             keyboardActions = KeyboardActions(
                                 onDone = {
-                                    if (username.isNotEmpty() && password.isNotEmpty()) {
-                                        loginViewModel.login(
+                                    if (username.isNotEmpty() && email.isNotEmpty() && fullName.isNotEmpty() && password.isNotEmpty()) {
+                                        registerViewModel.register(
                                             username,
+                                            email,
+                                            fullName,
                                             password,
                                             navController.context,
                                             navController
@@ -123,9 +149,11 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = v
 
                         Button(
                             onClick = {
-                                if (username.isNotEmpty() && password.isNotEmpty()) {
-                                    loginViewModel.login(
+                                if (username.isNotEmpty() && email.isNotEmpty() && fullName.isNotEmpty() && password.isNotEmpty()) {
+                                    registerViewModel.register(
                                         username,
+                                        email,
+                                        fullName,
                                         password,
                                         navController.context,
                                         navController
@@ -141,7 +169,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = v
                             modifier = Modifier.fillMaxWidth(),
                             enabled = !isLoading
                         ) {
-                            Text("Login")
+                            Text("Register")
                         }
 
                         if (isLoading) {
@@ -152,12 +180,12 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = v
                         Spacer(modifier = Modifier.height(16.dp))
 
                         Text(
-                            text = "Don't have an account? Register here",
+                            text = "Have an account? Login here",
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
                                 .align(Alignment.CenterHorizontally)
                                 .clickable {
-                                    navController.navigate("register")
+                                    navController.navigate("login")
                                 }
                         )
                     }
